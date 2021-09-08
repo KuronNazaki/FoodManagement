@@ -2,6 +2,8 @@ package com.victor.app;
 
 import java.util.Scanner;
 
+import com.victor.controller.FoodController;
+
 public class App {
 	public static void main(String[] args) {
 		view();
@@ -10,6 +12,7 @@ public class App {
 	private static void view() {
 		int choice = 0;
 		Scanner scanner = new Scanner(System.in);
+		FoodController controller = FoodController.getInstance();
 
 		do {
 			System.out.println("\n\nWelcome to Food Management - @2021 by Huynh Hoang Huy SE160046");
@@ -31,12 +34,19 @@ public class App {
 
 			switch (choice) {
 				case 1:
+					controller.add();
 					break;
 				case 2:
+					controller.search();
 					break;
 				case 3:
+					controller.delete();
 					break;
 				case 4:
+					controller.printSortedList();
+					break;
+				case 6:
+					controller.printList();
 					break;
 				case 5:
 					System.out.println("Bye. Thank you for using me UwU");
@@ -46,6 +56,7 @@ public class App {
 			}
 		} while (choice != 5);
 
+		controller.saveToFile();
 		scanner.close();
 	}
 }

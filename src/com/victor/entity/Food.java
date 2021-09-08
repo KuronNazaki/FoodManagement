@@ -1,5 +1,6 @@
 package com.victor.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Food {
@@ -70,6 +71,6 @@ public class Food {
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + "[id=" + id + ", name=" + name + ", weight=" + weight + ", type=" + type
-				+ ", place=" + place + ", expiredDate=" + expiredDate + "]";
+				+ ", place=" + place + ", expiredDate=" + new SimpleDateFormat("dd.MM.yyyy").format(expiredDate) + "]";
 	}
 }
