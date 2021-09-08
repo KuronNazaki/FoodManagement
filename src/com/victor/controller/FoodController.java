@@ -1,3 +1,7 @@
+/**
+ * Author: Huynh Hoang Huy aka Victor
+ * RollNo: SE160046
+ */
 package com.victor.controller;
 
 import java.io.BufferedWriter;
@@ -17,7 +21,6 @@ import java.util.stream.Collectors;
 
 import com.victor.entity.Food;
 
-@SuppressWarnings("serial")
 public class FoodController {
 	private final String FILE_NAME = "food.dat";
 	private List<Food> foods = null;
@@ -40,32 +43,16 @@ public class FoodController {
 		return controller;
 	}
 
-	private static String toSimpleDateString(Date date) {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		return dateFormat.format(date).toString();
-	}
-
-	private static String toWritableString(Food food) {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		return food.getId() + "|" + food.getName() + "|" + food.getWeight() + "|" + food.getType() + "|" + food.getPlace()
-				+ "|" + dateFormat.format(food.getExpiredDate());
-	}
-
 	public Optional<Food> find(String id) {
 		return foods.isEmpty() ? Optional.empty() : foods.stream().filter(food -> food.getId().equals(id)).findFirst();
 	}
 
-	private Optional<Food> findByName(String name) {
-		return foods.size() == 0 ? Optional.empty()
-				: foods.stream().filter(food -> food.getName().equals(name)).findFirst();
-	}
-
-	private List<Food> findAllByName(String name) {
+	public List<Food> findAllByName(String name) {
 		return foods.size() == 0 ? null
 				: foods.stream().filter(food -> food.getName().matches("(?i).*" + name + ".*")).collect(Collectors.toList());
 	}
 
-	public boolean isExisted(String id) {
+	private boolean isExisted(String id) {
 		if (foods.isEmpty()) {
 			return false;
 		}
@@ -89,7 +76,7 @@ public class FoodController {
 
 		do {
 			System.out.print("Enter ID: ");
-			id = userScanner.nextLine(); // need ID validation
+			id = userScanner.nextLine();
 		} while (isExisted(id) || isEmptyString(id));
 
 		do {
@@ -100,7 +87,7 @@ public class FoodController {
 		do {
 			try {
 				System.out.print("Enter weight in gram: ");
-				weight = Integer.parseInt(userScanner.nextLine()); // need number validation
+				weight = Integer.parseInt(userScanner.nextLine());
 			} catch (NumberFormatException e) {
 				System.out.println("ERROR: Invalid number format");
 			}
@@ -108,12 +95,12 @@ public class FoodController {
 
 		do {
 			System.out.print("Enter type: ");
-			type = userScanner.nextLine(); // need a menu to choose between various types
+			type = userScanner.nextLine();
 		} while (isEmptyString(type));
 
 		do {
 			System.out.print("Enter place (cool or freeze): ");
-			place = userScanner.nextLine(); // need to validate whether it is cool or freeze or not
+			place = userScanner.nextLine();
 		} while (!place.matches("(?i)(cool|freeze)"));
 
 		do {
@@ -185,7 +172,7 @@ public class FoodController {
 		}
 	}
 
-	public Food create(String data) {
+	private Food create(String data) {
 		String[] tokens = data.split("\\|");
 		int weight = Integer.parseInt(tokens[2]);
 		Date expiredDate = null;
@@ -225,7 +212,7 @@ public class FoodController {
 		close();
 	}
 
-	public void open(boolean isReadMode) {
+	private void open(boolean isReadMode) {
 		if (isReadMode) {
 			try {
 				scanner = new Scanner(Paths.get(FILE_NAME), "UTF-8");
@@ -243,7 +230,7 @@ public class FoodController {
 		}
 	}
 
-	public void close() {
+	private void close() {
 		if (scanner != null) {
 			scanner.close();
 		}
@@ -281,7 +268,7 @@ public class FoodController {
 		System.out.println("+-----------------------------------------------------------------------------------+");
 	}
 
-	public static void printFormattedItem(Food food) {
+	private static void printFormattedItem(Food food) {
 		System.out.format("|%8s|%20s|%10d(g)|%15s|%10s|%12s|\n", food.getId(), food.getName(), food.getWeight(),
 				food.getType(), food.getPlace(), toSimpleDateString(food.getExpiredDate()));
 	}
@@ -361,5 +348,17 @@ public class FoodController {
 		}
 
 		return data;
+	}
+
+	//Utilities
+	private static String toSimpleDateString(Date date) {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		return dateFormat.format(date).toString();
+	}
+
+	private static String toWritableString(Food food) {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		return food.getId() + "|" + food.getName() + "|" + food.getWeight() + "|" + food.getType() + "|" + food.getPlace()
+				+ "|" + dateFormat.format(food.getExpiredDate());
 	}
 }

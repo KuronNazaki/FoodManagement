@@ -1,3 +1,7 @@
+/**
+ * Author: Huynh Hoang Huy aka Victor
+ * RollNo: SE160046
+ */
 package com.victor.entity;
 
 import java.text.SimpleDateFormat;
