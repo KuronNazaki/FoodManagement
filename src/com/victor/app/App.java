@@ -13,11 +13,12 @@ public class App {
 		int choice = 0;
 		Scanner scanner = new Scanner(System.in);
 		FoodController controller = FoodController.getInstance();
+		String wantToContinue = null;
 
 		do {
 			System.out.println("\n\nWelcome to Food Management - @2021 by Huynh Hoang Huy SE160046");
 			System.out.println("Select the options below: ");
-			System.out.println("1. Add a new food"); 
+			System.out.println("1. Add a new food");
 			System.out.println("2. Search a food by its name");
 			System.out.println("3. Remove a food by its ID");
 			System.out.println("4. Print the food list in the descending order of expired date");
@@ -34,10 +35,28 @@ public class App {
 
 			switch (choice) {
 				case 1:
-					controller.add();
+					do {
+						controller.add();
+						do {
+							System.out.print("Do you want to add another food (Y/N)? ");
+							wantToContinue = scanner.nextLine();
+							if (!wantToContinue.matches("[YyNn]")) {
+								wantToContinue = null;
+							}
+						} while (wantToContinue == null);
+					} while (wantToContinue.toUpperCase().equals("Y"));
 					break;
 				case 2:
-					controller.search();
+					do {
+						controller.search();
+						do {
+							System.out.print("Do you want to search another food (Y/N)? ");
+							wantToContinue = scanner.nextLine();
+							if (!wantToContinue.matches("[YyNn]")) {
+								wantToContinue = null;
+							}
+						} while (wantToContinue == null);
+					} while (wantToContinue.toUpperCase().equals("Y"));
 					break;
 				case 3:
 					controller.delete();
