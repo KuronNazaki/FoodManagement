@@ -2,8 +2,6 @@
  * Author: Huynh Hoang Huy aka Victor
  * RollNo: SE160046
  */
-package com.victor.controller;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,8 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
-import com.victor.entity.Food;
 
 public class FoodController {
 	private final String FILE_NAME = "food.dat";

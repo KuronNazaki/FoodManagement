@@ -2,11 +2,7 @@
  * Author: Huynh Hoang Huy aka Victor
  * RollNo: SE160046
  */
-package com.victor.app;
-
 import java.util.Scanner;
-
-import com.victor.controller.FoodController;
 
 public class App {
 	public static void main(String[] args) {
