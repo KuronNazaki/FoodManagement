@@ -1,5 +1,5 @@
 /**
- * Author: Huynh Hoang Huy aka Victor
+ * Author: Huynh Hoang Huy
  * RollNo: SE160046
  */
 import java.text.SimpleDateFormat;
