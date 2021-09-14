@@ -56,7 +56,7 @@ public class App {
 					break;
 				case 2:
 					do {
-						search(controller);
+						searchExpiredDate(controller);
 						do {
 							System.out.print("Do you want to search another food (Y/N)? ");
 							wantToContinue = scanner.nextLine();
@@ -107,7 +107,9 @@ public class App {
 			try {
 				System.out.print("Enter weight in gram: ");
 				weight = Integer.parseInt(userScanner.nextLine());
-				if (weight <= 0) {
+				if (weight == 0) {
+					System.err.println("Weight can't be 0");
+				} else if (weight < 0) {
 					System.err.println("Weight can't be negative");
 					weight = 0;
 				} else if (weight > FoodController.MAX_WEIGHT) {
@@ -198,6 +200,35 @@ public class App {
 		} while (Utility.isEmptyString(name));
 		
 		List<Food> foodList = controller.findAllByName(name);
+		if (foodList.size() != 0) {
+			controller.printList(foodList);
+		} else {
+			System.err.println("No item is found");
+		}
+	}
+
+	public static void searchExpiredDate(FoodController controller) {
+		String inputString = null;
+		Date expiredDate = null;
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+		do {
+			try {
+				System.out.print("Enter expired date (dd/mm/yyyy): ");
+				inputString = userScanner.nextLine();
+
+				if (!inputString.matches("^\\d{1,2}/\\d{1,2}/\\d{4}$")) {
+					System.err.println("ERROR: Invalid date");
+					continue;
+				}
+
+				expiredDate = dateFormat.parse(inputString);
+			} catch (ParseException e) {
+				System.err.println("ERROR: Invalid date");
+			}
+		} while (expiredDate == null);
+
+		List<Food> foodList = controller.findAllByDate(expiredDate);
 		if (foodList.size() != 0) {
 			controller.printList(foodList);
 		} else {

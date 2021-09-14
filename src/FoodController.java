@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -43,6 +44,10 @@ public class FoodController {
 	public List<Food> findAllByName(String name) {
 		return foods.size() == 0 ? null
 				: foods.stream().filter(food -> food.getName().matches("(?i).*" + name + ".*")).collect(Collectors.toList());
+	}
+
+	public List<Food> findAllByDate(Date date) {
+		return foods.size() == 0 ? null : foods.stream().filter(food -> food.getExpiredDate().compareTo(date) <= 0).collect(Collectors.toList());
 	}
 
 	public boolean isExisted(String id) {
